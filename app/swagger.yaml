@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
   title: Backend project for following expenses
+  version: 1.0.0
   description: |-
     This is a simple backend API for keeping a database on various expenses. 
     The database is hosted on seperate server and deployed by using [Render](https://render.com/).
-    contact: 
-      name: Hilla Hotakainen
-      email: hilla.hotakainen@outlook.com
-    version: 1.0.0
+  contact:
+    name: Hilla Hotakainen
+    email: hilla.hotakainen@outlook.com
 servers:
   - url: https://project-igip.onrender.com/api
 
@@ -22,7 +22,7 @@ security:
 paths:
   /expenses:
     get:
-      description: returns list of all expenses
+      description: Returns list of all expenses
       responses:
         "200":
           description: Succesfully returned list of expenses
@@ -38,7 +38,7 @@ paths:
                     date:
                       type: string
                     amount:
-                      type: decimal
+                      type: integer
                     shop:
                       type: string
                     category:
@@ -49,6 +49,3 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                message:
-                  type: string
