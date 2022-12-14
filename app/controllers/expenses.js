@@ -17,8 +17,23 @@ const getExpensesByMonth = async (req, res) => {
 
 const getExpensesByDate = async (req, res) => {
   const date = req.params.date;
-  console.log(date);
   const response = await expenses.getByDate(date);
+  if (response) {
+    res.send(response);
+  }
+};
+
+const getExpensesByShop = async (req, res) => {
+  const shop = req.params.shop;
+  const response = await expenses.getByShop(shop);
+  if (response) {
+    res.send(response);
+  }
+};
+
+const getExpensesByCategory = async (req, res) => {
+  const category = req.params.category;
+  const response = await expenses.getByCategory(category);
   if (response) {
     res.send(response);
   }
@@ -64,6 +79,8 @@ module.exports = {
   getExpenses,
   getExpensesByMonth,
   getExpensesByDate,
+  getExpensesByShop,
+  getExpensesByCategory,
   createExpense,
   deleteExpense,
   updateExpense,

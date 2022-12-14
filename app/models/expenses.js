@@ -30,6 +30,26 @@ const allExpenses = {
         resolve(result);
       });
     }),
+  getByShop: (shop) =>
+    new Promise((resolve, reject) => {
+      const selectQuery = "SELECT * FROM expenses WHERE shop LIKE ?;";
+      connect.query(selectQuery, shop, (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(result);
+      });
+    }),
+  getByCategory: (category) =>
+    new Promise((resolve, reject) => {
+      const selectQuery = "SELECT * FROM expenses WHERE category LIKE ?;";
+      connect.query(selectQuery, category, (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(result);
+      });
+    }),
   save: (expense) =>
     new Promise((resolve, reject) => {
       connect.query("INSERT INTO expenses SET ?", expense, (err, result) => {
