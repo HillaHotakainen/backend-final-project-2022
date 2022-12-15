@@ -11,14 +11,6 @@ info:
 servers:
   - url: https://project-igip.onrender.com/api
 
-components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-security:
-  - BasicAuth: []
-
 paths:
   /expenses:
     get:
@@ -49,3 +41,78 @@ paths:
             application/json:
               schema:
                 type: object
+    post:
+      description: Creates a new expense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                amount:
+                  type: integer
+                shop:
+                  type: string
+                category:
+                  type: string
+      responses:
+        "201":
+          description: Created new expense
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+    put:
+      description: updates an exsisting expense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/expense"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+
+  /expenses/{id}:
+    delete:
+      description: Delete a specific expense
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Expense deleted
+          content:
+            text/plain:
+              example: Expense deleted
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    expense:
+      type: object
+      properties:
+        id:
+          type: integer
+        date:
+          type: string
+        amount:
+          type: integer
+        shop:
+          type: string
+        category:
+          type: string
