@@ -21,26 +21,11 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    date:
-                      type: string
-                    amount:
-                      type: integer
-                    shop:
-                      type: string
-                    category:
-                      type: string
+                $ref: "#/components/schemas/arrayExpense"
         "400":
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                type: object
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
     post:
       description: Creates a new expense
       requestBody:
@@ -52,12 +37,16 @@ paths:
               properties:
                 date:
                   type: string
+                  example: "2022-11-15"
                 amount:
                   type: integer
+                  example: 25.78
                 shop:
                   type: string
+                  example: "Lidl"
                 category:
                   type: string
+                  example: "groceries"
       responses:
         "201":
           description: Created new expense
@@ -65,6 +54,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
     put:
       description: updates an exsisting expense
       requestBody:
@@ -80,6 +73,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
 
   /expenses/{id}:
     delete:
@@ -96,23 +93,139 @@ paths:
           content:
             text/plain:
               example: Expense deleted
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/{month}:
+    get:
+      description: Finds all expenses of specified month
+      parameters:
+        - name: month
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/arrayExpense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/date/{date}:
+    get:
+      description: Finds all expenses with specific date
+      parameters:
+        - name: date
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/category/{category}:
+    get:
+      description: Finds all expenses with specific category
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/shop/{shop}:
+    get:
+      description: Finds all expenses from specific shop
+      parameters:
+        - name: shop
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
 
 components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
   schemas:
     expense:
       type: object
       properties:
         id:
           type: integer
+          example: 2
         date:
           type: string
+          example: "2022-11-15T00:00:00.000Z"
         amount:
           type: integer
+          example: 25.78
         shop:
           type: string
+          example: "Lidl"
         category:
           type: string
+          example: "groceries"
+    arrayExpense:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 1
+          date:
+            type: string
+            example: "2022-11-15T00:00:00.000Z"
+          amount:
+            type: integer
+            example: 25.34
+          shop:
+            type: string
+            example: "Lidl"
+          category:
+            type: string
+            example: "groceries"
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        text/plain:
+          example: Invalid value
+    404Error:
+      description: Not found
+      content:
+        text/plain:
+          example: Not found

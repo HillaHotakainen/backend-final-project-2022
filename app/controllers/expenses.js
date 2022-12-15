@@ -1,41 +1,72 @@
 const expenses = require("../models/expenses");
 
 const getExpenses = async (req, res) => {
-  const response = await expenses.getAll();
-  if (response) {
-    res.send(response);
+  try {
+    const response = await expenses.getAll();
+    if (response) {
+      res.send(response);
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
 const getExpensesByMonth = async (req, res) => {
   const month = req.params.month;
-  const response = await expenses.getByMonth(month);
-  if (response) {
-    res.send(response);
+  try {
+    const response = await expenses.getByMonth(month);
+    if (month <= 12 && response.length >= 1) {
+      res.send(response);
+      console.log(response.length);
+    } else if (month > 12) {
+      res.status(400).send("Invalid input");
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
 const getExpensesByDate = async (req, res) => {
   const date = req.params.date;
-  const response = await expenses.getByDate(date);
-  if (response) {
-    res.send(response);
+  try {
+    const response = await expenses.getByDate(date);
+    if (response.length >= 1) {
+      res.send(response);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
 const getExpensesByShop = async (req, res) => {
   const shop = req.params.shop;
-  const response = await expenses.getByShop(shop);
-  if (response) {
-    res.send(response);
+  try {
+    const response = await expenses.getByShop(shop);
+    if (response.length >= 1) {
+      res.send(response);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
 const getExpensesByCategory = async (req, res) => {
   const category = req.params.category;
-  const response = await expenses.getByCategory(category);
-  if (response) {
-    res.send(response);
+  try {
+    const response = await expenses.getByCategory(category);
+    if (response.length >= 1) {
+      res.send(response);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
@@ -46,18 +77,26 @@ const createExpense = async (req, res) => {
     shop: req.body.shop,
     category: req.body.category,
   };
-  const response = await expenses.save(expense);
-  if (response) {
-    expenses.id = response.insertId;
-    res.send(expense);
+  try {
+    const response = await expenses.save(expense);
+    if (response) {
+      expenses.id = response.insertId;
+      res.send(expense);
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
 const deleteExpense = async (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const response = await expenses.deleteById(id);
-  if (response) {
-    res.send("invoice deleted");
+  try {
+    const response = await expenses.deleteById(id);
+    if (response) {
+      res.send("invoice deleted");
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
@@ -69,9 +108,13 @@ const updateExpense = async (req, res) => {
     shop: req.body.shop,
     category: req.body.category,
   };
-  const response = await expenses.updateById(expense);
-  if (response) {
-    res.send(expense);
+  try {
+    const response = await expenses.updateById(expense);
+    if (response) {
+      res.send(expense);
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
   }
 };
 
