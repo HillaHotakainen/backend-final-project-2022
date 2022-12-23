@@ -11,9 +11,15 @@ info:
 servers:
   - url: https://project-igip.onrender.com/api
 
+tags:
+  - name: expenses
+    description: Everything about your imaginary expenses
+
 paths:
   /expenses:
     get:
+      tags:
+        - expenses
       description: Returns list of all expenses
       responses:
         "200":
@@ -27,6 +33,8 @@ paths:
         "404":
           $ref: "#/components/responses/404Error"
     post:
+      tags:
+        - expenses
       description: Creates a new expense
       requestBody:
         required: true
@@ -59,6 +67,8 @@ paths:
         "404":
           $ref: "#/components/responses/404Error"
     put:
+      tags:
+        - expenses
       description: updates an exsisting expense
       requestBody:
         required: true
@@ -80,6 +90,8 @@ paths:
 
   /expenses/{id}:
     delete:
+      tags:
+        - expenses
       description: Delete a specific expense
       parameters:
         - name: id
@@ -99,6 +111,8 @@ paths:
           $ref: "#/components/responses/404Error"
   /expenses/{month}:
     get:
+      tags:
+        - expenses
       description: Finds all expenses of specified month
       parameters:
         - name: month
@@ -119,11 +133,14 @@ paths:
           $ref: "#/components/responses/404Error"
   /expenses/date/{date}:
     get:
+      tags:
+        - expenses
       description: Finds all expenses with specific date
       parameters:
         - name: date
           in: path
           required: true
+          example: "2022-01-01"
           schema:
             type: string
       responses:
@@ -139,6 +156,8 @@ paths:
           $ref: "#/components/responses/404Error"
   /expenses/category/{category}:
     get:
+      tags:
+        - expenses
       description: Finds all expenses with specific category
       parameters:
         - name: category
@@ -159,6 +178,8 @@ paths:
           $ref: "#/components/responses/404Error"
   /expenses/shop/{shop}:
     get:
+      tags:
+        - expenses
       description: Finds all expenses from specific shop
       parameters:
         - name: shop
