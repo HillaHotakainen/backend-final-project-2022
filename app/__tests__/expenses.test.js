@@ -18,23 +18,23 @@ describe("GET expenses endoint", () => {
       expect.arrayContaining([
         expect.objectContaining(
           {
-            amount: 25,
+            amount: 55.67,
             category: "groceries",
-            date: "2022-10-24T21:00:00.000Z",
+            date: "2022-10-19T21:00:00.000Z",
             id: 1,
-            shop: "Wolt",
+            shop: "Lidl",
           },
           {
-            amount: 157.56,
+            amount: 23.12,
             category: "eating out",
-            date: "2022-10-14T21:00:00.000Z",
+            date: "2022-10-24T21:00:00.000Z",
             id: 2,
             shop: "Mardin",
           },
           {
-            amount: 150.56,
+            amount: 150.1,
             category: "groceries",
-            date: "2022-11-14T22:00:00.000Z",
+            date: "2022-11-09T22:00:00.000Z",
             id: 3,
             shop: "Lidl",
           },
@@ -50,6 +50,13 @@ describe("GET expenses endoint", () => {
             category: "traveling",
             date: "2022-12-19T22:00:00.000Z",
             id: 5,
+            shop: "VR",
+          },
+          {
+            amount: 94.87,
+            category: "traveling",
+            date: "2022-12-26T22:00:00.000Z",
+            id: 6,
             shop: "VR",
           }
         ),
@@ -67,16 +74,16 @@ describe("GET expenses endoint", () => {
       expect.arrayContaining([
         expect.objectContaining(
           {
-            amount: 25,
+            amount: 55.67,
             category: "groceries",
-            date: "2022-10-24T21:00:00.000Z",
+            date: "2022-10-19T21:00:00.000Z",
             id: 1,
-            shop: "Wolt",
+            shop: "Lidl",
           },
           {
-            amount: 157.56,
+            amount: 23.12,
             category: "eating out",
-            date: "2022-10-14T21:00:00.000Z",
+            date: "2022-10-24T21:00:00.000Z",
             id: 2,
             shop: "Mardin",
           }
