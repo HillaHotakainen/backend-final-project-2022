@@ -163,9 +163,9 @@ paths:
         - name: amount
           in: path
           required: true
-          example: "75.87"
+          example: '75.87'
           schema:
-            type: integer
+            type: string
       responses:
         "200":
           description: Succesfully returned list of expenses.
