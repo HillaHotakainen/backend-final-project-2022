@@ -30,6 +30,16 @@ const allExpenses = {
         resolve(result);
       });
     }),
+  getByCost: (amount) =>
+    new Promise((resolve, reject) => {
+      const selectQuery = `SELECT * FROM expenses WHERE amount = ${amount};`;
+      connect.query(selectQuery, amount, (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(result);
+      });
+    }),
   getByShop: (shop) =>
     new Promise((resolve, reject) => {
       const selectQuery = "SELECT * FROM expenses WHERE shop LIKE ?;";

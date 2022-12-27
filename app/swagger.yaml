@@ -154,6 +154,29 @@ paths:
           $ref: "#/components/responses/400Error"
         "404":
           $ref: "#/components/responses/404Error"
+  /expenses/cost/{amount}:
+    get:
+      tags:
+        - expenses
+      description: Finds all expenses with specific amount
+      parameters:
+        - name: amount
+          in: path
+          required: true
+          example: "75.87"
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
   /expenses/category/{category}:
     get:
       tags:

@@ -1,13 +1,13 @@
 GET https://project-igip.onrender.com/api/expenses
 
 ###
-GET https://project-igip.onrender.com/api/expenses/10
+GET https://project-igip.onrender.com/api/expenses/12
 
 ###
 GET https://project-igip.onrender.com/api/expenses/date/2022-11-15
 
 ###
-GET https://project-igip.onrender.com/api/expenses/amount/55.57
+GET https://project-igip.onrender.com/api/expenses/cost/157.56
 
 ###
 GET https://project-igip.onrender.com/api/expenses/category/groceries

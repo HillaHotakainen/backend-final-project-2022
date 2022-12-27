@@ -3,6 +3,7 @@ const {
   getExpenses,
   getExpensesByMonth,
   getExpensesByDate,
+  getExpensesByCost,
   getExpensesByShop,
   getExpensesByCategory,
   createExpense,
@@ -15,6 +16,7 @@ const router = express.Router();
 router.get("/", getExpenses);
 router.get("/:month", getExpensesByMonth);
 router.get("/date/:date", getExpensesByDate);
+router.get("/cost/:amount", getExpensesByCost);
 router.get("/shop/:shop", getExpensesByShop);
 router.get("/category/:category", getExpensesByCategory);
 router.post("/", createExpense);

@@ -42,6 +42,21 @@ const getExpensesByDate = async (req, res) => {
   }
 };
 
+const getExpensesByCost = async (req, res) => {
+  const amount = req.params.amount;
+  console.log(amount);
+  try {
+    const response = await expenses.getByCost(amount);
+    if (response.length >= 1) {
+      res.send(response);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (e) {
+    res.status(500).send("Database error");
+  }
+};
+
 const getExpensesByShop = async (req, res) => {
   const shop = req.params.shop;
   try {
@@ -122,6 +137,7 @@ module.exports = {
   getExpenses,
   getExpensesByMonth,
   getExpensesByDate,
+  getExpensesByCost,
   getExpensesByShop,
   getExpensesByCategory,
   createExpense,
