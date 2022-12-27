@@ -47,7 +47,7 @@ Navigate to localhost.rest file. You can see all the aviable requests there and 
 This project is deployed in Render.com
 You can find all aviable requests in file server.rest and also run them by pressing Send Request.
 
-### Running the program in by using swagger.io
+### Running the program by using swagger.io
 
 This project includes swagger.yaml file.
 You can run this project via swagger by navigation to address: https://editor.swagger.io/
