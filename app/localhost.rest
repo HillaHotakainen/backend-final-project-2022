@@ -1,0 +1,42 @@
+GET http://localhost:5000/api/expenses
+
+###
+GET http://localhost:5000/api/expenses/10
+
+###
+GET http://localhost:5000/api/expenses/date/2022-11-15
+
+###
+GET http://localhost:5000/api/expenses/cost/75.87
+
+###
+GET http://localhost:5000/api/expenses/category/traveling
+
+###
+GET http://localhost:5000/api/expenses/shop/Lidl
+
+###
+POST http://localhost:5000/api/expenses HTTP/1.1
+Content-Type: application/json
+
+{
+    "date": "2022-10-21",
+    "amount": 123.56,
+    "shop": "Prisma",
+    "category": "groceries"
+}
+
+###
+DELETE http://localhost:5000/api/expenses/9
+
+###
+PUT http://localhost:5000/api/expenses HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 2,
+    "date": "2022-10-15",
+    "amount": 157.56,
+    "shop": "Mardin",
+    "category": "eating out"
+}

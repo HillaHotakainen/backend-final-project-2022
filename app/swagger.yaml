@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: Backend project for following expenses
+  version: 1.0.0
+  description: |-
+    This is a simple backend API for keeping a database on various expenses. 
+    The database is hosted on seperate server and deployed by using [Render](https://render.com/).
+  contact:
+    name: Hilla Hotakainen
+    email: hilla.hotakainen@outlook.com
+servers:
+  - url: https://project-igip.onrender.com/api
+
+tags:
+  - name: expenses
+    description: Everything about your imaginary expenses
+
+paths:
+  /expenses:
+    get:
+      tags:
+        - expenses
+      description: Returns list of all expenses
+      responses:
+        "200":
+          description: Succesfully returned list of expenses
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/arrayExpense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+    post:
+      tags:
+        - expenses
+      description: Creates a new expense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  example: "2022-11-15"
+                amount:
+                  type: integer
+                  example: 25.78
+                shop:
+                  type: string
+                  example: "Lidl"
+                category:
+                  type: string
+                  example: "groceries"
+      responses:
+        "201":
+          description: Created new expense
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+    put:
+      tags:
+        - expenses
+      description: updates an exsisting expense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/expense"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+
+  /expenses/{id}:
+    delete:
+      tags:
+        - expenses
+      description: Delete a specific expense
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Expense deleted
+          content:
+            text/plain:
+              example: Expense deleted
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/{month}:
+    get:
+      tags:
+        - expenses
+      description: Finds all expenses of specified month
+      parameters:
+        - name: month
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/arrayExpense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/date/{date}:
+    get:
+      tags:
+        - expenses
+      description: Finds all expenses with specific date
+      parameters:
+        - name: date
+          in: path
+          required: true
+          example: "2022-01-01"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/cost/{amount}:
+    get:
+      tags:
+        - expenses
+      description: Finds all expenses with specific amount
+      parameters:
+        - name: amount
+          in: path
+          required: true
+          example: '75.87'
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/category/{category}:
+    get:
+      tags:
+        - expenses
+      description: Finds all expenses with specific category
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+  /expenses/shop/{shop}:
+    get:
+      tags:
+        - expenses
+      description: Finds all expenses from specific shop
+      parameters:
+        - name: shop
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Succesfully returned list of expenses.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/expense"
+        "400":
+          $ref: "#/components/responses/400Error"
+        "404":
+          $ref: "#/components/responses/404Error"
+
+components:
+  schemas:
+    expense:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        date:
+          type: string
+          example: "2022-11-15T00:00:00.000Z"
+        amount:
+          type: integer
+          example: 25.78
+        shop:
+          type: string
+          example: "Lidl"
+        category:
+          type: string
+          example: "groceries"
+    arrayExpense:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 1
+          date:
+            type: string
+            example: "2022-11-15T00:00:00.000Z"
+          amount:
+            type: integer
+            example: 25.34
+          shop:
+            type: string
+            example: "Lidl"
+          category:
+            type: string
+            example: "groceries"
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        text/plain:
+          example: Invalid value
+    404Error:
+      description: Not found
+      content:
+        text/plain:
+          example: Not found
